@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - tui@localhost" uuid="5e184a30-5a2e-4637-af1b-66dca7d8e1ee">
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <schema-pattern>tui.pg_catalog tui.public</schema-pattern>
+      <default-schemas>tui.pg_catalog tui.public</default-schemas>
+    </data-source>
+  </component>
+</project>

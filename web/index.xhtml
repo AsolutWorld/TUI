@@ -6,9 +6,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ice="http://www.icesoft.com/icefaces/component">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
+    <h:head>
+        <h:outputStylesheet library="css" name="styles.css"/>
+    </h:head>
 
-   </f:view>
+    <h:body>
+        <f:view>
+            <h:outputLabel value="Hello, world"/>
+            #{tui.gessage}
+        </f:view>
+    </h:body>
+
 
 </html>
