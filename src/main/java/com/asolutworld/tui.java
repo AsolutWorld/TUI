@@ -15,7 +15,7 @@ public class tui {
     }
 
 
-    public String gessage(){
+    public String getGessage(){
         return "hello yordle";
     }
 }
