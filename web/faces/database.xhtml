@@ -3,21 +3,47 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ace="http://www.icefaces.org/icefaces/components">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite">
 <h:head>
     <h:outputStylesheet library="css" name="styles.css" />
+    <title>БДВР</title>
 </h:head>
 <h:body>
-    <div class="header">
-
-    </div>
+    <ui:include src="comps/title.xhtml"/>
+    <ui:include src="comps/menuLeft.xhtml"/>
     <div class="main">
-        <f:view>
-            <ace:dataTable id="volunteerTable" value="#{databaseController.volunteers}" var="volunteer">
 
-            </ace:dataTable>
-        </f:view>
+        <h:form>
+            <h:commandButton value="Save data" action="#{databaseController.saveVolunteersChanges}"/>
+            <h:dataTable id="volunteerTable" value="#{databaseController.volunteers}" var="volunteer">
+                <h:column>
+                    <f:facet name="header">Second Name</f:facet>
+                    <h:inputText value="#{volunteer.sname}" size="10" rendered="#{volunteer.canEdit}"/>
+                    <h:outputText value="#{volunteer.sname}" rendered="#{not volunteer.canEdit}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">First Name</f:facet>
+                    <h:inputText value="#{volunteer.fname}" size="10" rendered="#{volunteer.canEdit}"/>
+                    <h:outputText value="#{volunteer.fname}" rendered="#{not volunteer.canEdit}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Location</f:facet>
+                    <h:inputText value="#{volunteer.location}" size="10" rendered="#{volunteer.canEdit}"/>
+                    <h:outputText value="#{volunteer.location}" rendered="#{not volunteer.canEdit}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Phone</f:facet>
+                    <h:inputText value="#{volunteer.phone}" size="10" rendered="#{volunteer.canEdit}"/>
+                    <h:outputText value="#{volunteer.phone}" rendered="#{not volunteer.canEdit}"/>
+                </h:column>
+
+            </h:dataTable>
+
+        </h:form>
+
     </div>
     <div class="footer">
 

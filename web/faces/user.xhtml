@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css" />
+    <title>Пользователь #{login.user}</title>
+</h:head>
+<h:body>
+    <ui:include src="comps/title.xhtml"/>
+    <ui:include src="comps/menuLeft.xhtml"/>
+    <div class="main">
+        <h:form>
+
+            <h:dataTable value="#{databaseController.userResources}" var="resource">
+                <h:column>
+                    <f:facet name="header">Stock</f:facet>
+                    <h:inputText value="#{resource.stock_name}" size="10" rendered="true"/>
+                    <h:outputText value="#{resource.stock_name}" rendered="false"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Resource</f:facet>
+                    <h:inputText value="#{resource.resource}" size="10" rendered="true"/>
+                    <h:outputText value="#{resource.resource}" rendered="false"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Count</f:facet>
+                    <h:inputText value="#{resource.count}" size="10" rendered="true"/>
+                    <h:outputText value="#{resource.count}" rendered="false"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                    <h:inputText value="#{resource.type}" size="10" rendered="true"/>
+                    <h:outputText value="#{resource.type}" rendered="false"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+</h:body>
+
+</html>

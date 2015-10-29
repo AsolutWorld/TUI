@@ -1,21 +1,38 @@
 package main.java.com.asolutworld.Objects;
 
+import main.java.com.asolutworld.Constants.Strings;
+
 import java.io.Serializable;
+import java.io.StringReader;
 
 public class Volunteer implements Serializable {
     private int u_id;
     private String sname;
     private String fname;
     private String location;
-    private String resources;
     private String phone;
+    private String role;
 
-    public String getResources() {
-        return resources;
+    public Volunteer(int u_id,String sname,String fname,String location,String phone,String role){
+        this.u_id=u_id;
+        this.sname=sname;
+        this.fname=fname;
+        this.location=location;
+        this.phone=phone;
+        this.role=role;
     }
 
-    public void setResources(String resources) {
-        this.resources = resources;
+    public boolean getCanEdit(){
+        if(role.equals(Strings.ADMIN))return true;
+        else return false;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getU_id() {
