@@ -1,7 +1,9 @@
 package main.java.com.asolutworld.Objects;
 
+import main.java.com.asolutworld.Authorization.beans.SessionBean;
 import main.java.com.asolutworld.Constants.Strings;
 
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.io.StringReader;
 
@@ -25,6 +27,13 @@ public class Volunteer implements Serializable {
     public boolean getCanEdit(){
         if(role.equals(Strings.ADMIN))return true;
         else return false;
+    }
+
+    public boolean getMyProfile(){
+        if(u_id== (int)SessionBean.getSession().getAttribute("u_id")){
+            return true;
+        }
+        return false;
     }
 
     public String getRole() {

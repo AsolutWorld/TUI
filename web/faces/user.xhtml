@@ -13,36 +13,70 @@
     <ui:include src="comps/title.xhtml"/>
     <ui:include src="comps/menuLeft.xhtml"/>
     <div class="main">
-        <h:form>
-            <h:dataTable value="" var="data">
 
-            </h:dataTable>
+        <h:form>
+            <table>
+                <tr>
+                    <td>
+                        <h:outputText value="Фамилия"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.volunteer.sname}" rendered="#{databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.sname}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="Имя"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.volunteer.fname}" rendered="#{databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.fname}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="Адрес"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.volunteer.location}" rendered="#{databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.location}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="Телефон"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.volunteer.phone}" rendered="#{databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.phone}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                    </td>
+                </tr>
+            </table>
         </h:form>
 
         <h:form>
-
-            <h:dataTable value="#{databaseController.userResources}" var="resource">
+            <h:outputText value="Нет ресурсов" rendered="#{empty databaseController.uresources}"/>
+            <h:dataTable id="userTable" value="#{databaseController.uresources}" var="uresource"
+                         rendered="#{not empty databaseController.uresources}">
                 <h:column>
                     <f:facet name="header">Stock</f:facet>
-                    <h:inputText value="#{resource.stock_name}" size="10" rendered="true"/>
-                    <h:outputText value="#{resource.stock_name}" rendered="false"/>
+                    <h:outputText value="#{uresource.stock_name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Resource</f:facet>
-                    <h:inputText value="#{resource.resource}" size="10" rendered="true"/>
-                    <h:outputText value="#{resource.resource}" rendered="false"/>
+                    <h:outputText value="#{uresource.resource}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Count</f:facet>
-                    <h:inputText value="#{resource.count}" size="10" rendered="true"/>
-                    <h:outputText value="#{resource.count}" rendered="false"/>
+                    <h:outputText value="#{uresource.count}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Type</f:facet>
-                    <h:inputText value="#{resource.type}" size="10" rendered="true"/>
-                    <h:outputText value="#{resource.type}" rendered="false"/>
+                    <h:outputText value="#{uresource.type}"/>
                 </h:column>
             </h:dataTable>
+
         </h:form>
     </div>
 </h:body>

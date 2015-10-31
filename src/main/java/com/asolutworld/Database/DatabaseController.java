@@ -35,6 +35,9 @@ public class DatabaseController {
             "  available_resources.resource, available_resources.count, available_resources.type\n" +
             "FROM available_resources WHERE available_resources.stock_id=?";
 
+    private static final String GET_VOLUNTEER="SELECT volunteers.u_id,volunteers.sname,volunteers.fname,volunteers.location\n" +
+            "  ,volunteers.phone, volunteers.access FROM volunteers WHERE volunteers.u_id=?";
+
     private static final String UPDATE_VOLUNTEERS="UPDATE volunteers SET sname=?,fname=?,location=?,phone=?,access=? WHERE u_id=?";
     private static final String UPDATE_VOLUNTEER_RESOURCES="UPDATE hresources SET resource=?,count=?,type=? WHERE u_id=?";
     private static final String UPDATE_STOCK_RESOURCES="UPDATE hresources SET resource=?,count=?,type=? WHERE stock_id=?";
@@ -57,7 +60,7 @@ public class DatabaseController {
                 ResultSet resultSet=prep.executeQuery();
 
                 connection.close();
-                ReportManager.makeCSV(resultSet);
+                //ReportManager.makeCSV(resultSet);
                 while (resultSet.next()){
 
                     volunteers.add(new Volunteer(
@@ -99,19 +102,23 @@ public class DatabaseController {
         return "";
     }
 
-    private ArrayList<Resource> userResources;
-    public ArrayList<Resource> getUserResources(){
+
+
+    private ArrayList<Resource> uresources;
+    public ArrayList<Resource> getUresources(){
         String s=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("u_id");
         int u_id=Integer.valueOf(s);
-        collectUserResourcesData(u_id);
-        return userResources;
+        uresources=collectUserResourcesData(u_id);
+        return uresources;
     }
 
-    private void collectUserResourcesData(int u_id){
+    private ArrayList<Resource> collectUserResourcesData(int u_id){
+        ArrayList<Resource> resources=new ArrayList<>();
         try {
             Connection connection=DataConnection.getConnecion();
+
             if(connection!=null){
-                userResources=new ArrayList<>();
+
 
                 PreparedStatement prep=connection.prepareStatement(GET_VOLUNTEER_RESOURCES);
 
@@ -121,7 +128,7 @@ public class DatabaseController {
                 connection.close();
 
                 while (resultSet.next()){
-                    userResources.add(new Resource(
+                    resources.add(new Resource(
                             resultSet.getInt(1),
                             resultSet.getInt(2),
                             resultSet.getString(3),
@@ -130,18 +137,16 @@ public class DatabaseController {
                             resultSet.getString(6)
                     ));
                 }
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return resources;
     }
 
-    public String saveUserResourcesChanges(){
 
-        return "";
-    }
 
     private ArrayList<Resource> stockResources;
     public ArrayList<Resource> getStockResources(){
@@ -165,5 +170,60 @@ public class DatabaseController {
         }
 
     }
+
+    public void setVolunteers(ArrayList<Volunteer> volunteers) {
+        this.volunteers = volunteers;
+    }
+
+    public void setUresources(ArrayList<Resource> uresources) {
+        this.uresources = uresources;
+    }
+
+    public void setStockResources(ArrayList<Resource> stockResources) {
+        this.stockResources = stockResources;
+    }
+
+    private Volunteer volunteer;
+    public Volunteer getVolunteer() {
+        String s=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("u_id");
+        int u_id=Integer.valueOf(s);
+        volunteer=collectUserData(u_id);
+        return volunteer;
+    }
+
+    private Volunteer collectUserData(int u_id){
+        Volunteer vol=new Volunteer(u_id,"","","","","");
+        try {
+            Connection connection=DataConnection.getConnecion();
+
+            if(connection!=null){
+
+
+                PreparedStatement prep=connection.prepareStatement(GET_VOLUNTEER);
+
+                prep.setInt(1,u_id);
+                ResultSet resultSet=prep.executeQuery();
+
+                connection.close();
+
+                while (resultSet.next()){
+                    vol=new Volunteer(u_id,resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),
+                            resultSet.getString(5),resultSet.getString(6));
+                }
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vol;
+    }
+
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+    }
+
+
+
 
 }

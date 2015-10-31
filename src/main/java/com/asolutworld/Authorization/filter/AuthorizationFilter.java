@@ -26,7 +26,7 @@ public class AuthorizationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		try {
+		/*try {
 
 			HttpServletRequest reqt = (HttpServletRequest) request;
 			HttpServletResponse resp = (HttpServletResponse) response;
@@ -43,8 +43,8 @@ public class AuthorizationFilter implements Filter {
 				resp.sendRedirect(reqt.getContextPath() + "/index.xhtml");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-		}
-        //chain.doFilter(request, response);
+		}*/
+        chain.doFilter(request, response);
 	}
 
 	@Override
