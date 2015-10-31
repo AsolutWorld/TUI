@@ -9,6 +9,7 @@ import main.java.com.asolutworld.Utils.ReportManager;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,8 +26,8 @@ public class DatabaseController {
     private static final String CREATE_AVAILABLE_RESOURCES_TABLE="DROP TABLE IF EXISTS available_resources;\n" +
             "CREATE TABLE available_resources\n" +
             "AS (SELECT hres_id, u_id, stock_id, resource, count,type FROM hresources WHERE count>0 )";
-    private static final String GET_VOLUNTEERS="SELECT volunteer.u_id,volunteer.sname,volunteer.fname,volunteer.location\n" +
-            "  ,volunteer.phone, volunteer.access FROM volunteer";
+    private static final String GET_VOLUNTEERS="SELECT volunteers.u_id,volunteers.sname,volunteers.fname,volunteers.location\n" +
+            "  ,volunteers.phone, volunteers.access FROM volunteers";
     private static final String GET_VOLUNTEER_RESOURCES="SELECT available_resources.hres_id, available_resources.stock_id, \n" +
             "  stocks.st_name, available_resources.resource, available_resources.count, available_resources.type \n" +
             "  FROM available_resources,stocks WHERE (available_resources.u_id=?) AND (available_resources.stock_id=stocks.stock_id)";
@@ -100,19 +101,20 @@ public class DatabaseController {
 
     private ArrayList<Resource> userResources;
     public ArrayList<Resource> getUserResources(){
-        collectUserResourcesData();
+        String s=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("u_id");
+        int u_id=Integer.valueOf(s);
+        collectUserResourcesData(u_id);
         return userResources;
     }
 
-    private void collectUserResourcesData(){
+    private void collectUserResourcesData(int u_id){
         try {
             Connection connection=DataConnection.getConnecion();
             if(connection!=null){
                 userResources=new ArrayList<>();
 
                 PreparedStatement prep=connection.prepareStatement(GET_VOLUNTEER_RESOURCES);
-                HttpSession session = SessionBean.getSession();
-                int u_id=(int)session.getAttribute("u_id");
+
                 prep.setInt(1,u_id);
                 ResultSet resultSet=prep.executeQuery();
 

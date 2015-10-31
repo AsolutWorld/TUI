@@ -20,6 +20,8 @@ public class Login implements Serializable {
 	private String pwd;
 	private String msg;
 	private String user;
+	private String valid;
+    private boolean isAdmin=false;
 
 	public String getPwd() {
 		return pwd;
@@ -45,9 +47,19 @@ public class Login implements Serializable {
 		this.user = user;
 	}
 
-	//validate login
+    public String getValid() {
+        return valid;
+    }
+
+    public void setValid(String valid) {
+        this.valid = valid;
+    }
+    //validate login
+
 	public String validateUsernamePassword() {
-		String valid = LoginDAO.validate(user, pwd);
+		valid = LoginDAO.validate(user, pwd);
+		if (valid.equals(Strings.ADMIN))isAdmin=true;
+        else isAdmin=false;
 		if (valid.equals(Strings.ADMIN)||valid.equals(Strings.USER)) {
 			HttpSession session = SessionBean.getSession();
 			session.setAttribute("u_id",LoginDAO.getU_ID());
@@ -70,4 +82,8 @@ public class Login implements Serializable {
 		session.invalidate();
 		return "home";
 	}
+
+    public boolean getIsAdmin(){
+        return isAdmin;
+    }
 }

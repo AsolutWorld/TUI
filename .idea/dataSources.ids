@@ -1569,6 +1569,14 @@
       <column name="viewowner" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="definition" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
     </table>
+    <table name="available_resources" schema="public" catalog="tui" type="TABLE">
+      <column name="hres_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="u_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="stock_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="resource" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+      <column name="count" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="type" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
+    </table>
     <table name="hresources" schema="public" catalog="tui" type="TABLE">
       <column name="hres_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnaHJlc291cmNlc19ocmVzX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="u_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>

@@ -21,33 +21,36 @@
             <h:dataTable id="volunteerTable" value="#{databaseController.volunteers}" var="volunteer">
                 <h:column>
                     <f:facet name="header">Second Name</f:facet>
-                    <h:inputText value="#{volunteer.sname}" size="10" rendered="#{volunteer.canEdit}"/>
-                    <h:outputText value="#{volunteer.sname}" rendered="#{not volunteer.canEdit}"/>
+                    <h:inputText value="#{volunteer.sname}" size="10" rendered="#{login.isAdmin}"/>
+                    <h:outputText value="#{volunteer.sname}" rendered="#{not login.isAdmin}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">First Name</f:facet>
-                    <h:inputText value="#{volunteer.fname}" size="10" rendered="#{volunteer.canEdit}"/>
-                    <h:outputText value="#{volunteer.fname}" rendered="#{not volunteer.canEdit}"/>
+                    <h:inputText value="#{volunteer.fname}" size="10" rendered="#{login.isAdmin}"/>
+                    <h:outputText value="#{volunteer.fname}" rendered="#{not login.isAdmin}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Location</f:facet>
-                    <h:inputText value="#{volunteer.location}" size="10" rendered="#{volunteer.canEdit}"/>
-                    <h:outputText value="#{volunteer.location}" rendered="#{not volunteer.canEdit}"/>
+                    <h:inputText value="#{volunteer.location}" size="10" rendered="#{login.isAdmin}"/>
+                    <h:outputText value="#{volunteer.location}" rendered="#{not login.isAdmin}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Phone</f:facet>
-                    <h:inputText value="#{volunteer.phone}" size="10" rendered="#{volunteer.canEdit}"/>
-                    <h:outputText value="#{volunteer.phone}" rendered="#{not volunteer.canEdit}"/>
+                    <h:inputText value="#{volunteer.phone}" size="10" rendered="#{login.isAdmin}"/>
+                    <h:outputText value="#{volunteer.phone}" rendered="#{not login.isAdmin}"/>
                 </h:column>
-
+                <h:column>
+                    <f:facet name="header">Profile</f:facet>
+                    <h:commandButton value="Show" action="#{tui.user}">
+                        <f:param name="u_id" value="#{volunteer.u_id}"/>
+                    </h:commandButton>
+                </h:column>
             </h:dataTable>
 
         </h:form>
 
     </div>
-    <div class="footer">
 
-    </div>
 
 </h:body>
 </html>
