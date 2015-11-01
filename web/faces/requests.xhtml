@@ -11,9 +11,40 @@
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
-    <ui:include src="comps/menuLeft.xhtml"/>
     <div class="main">
-        
+        <h:form>
+            <h:dataTable value="#{databaseController.requests}" var="req">
+                <h:column>
+                    <f:facet name="header">Пользователь</f:facet>
+                    <h:outputText value="#{req.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Адрес</f:facet>
+                    <h:outputText value="#{req.address}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ресурс</f:facet>
+                    <h:outputText value="#{req.resource}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Количество</f:facet>
+                    <h:outputText value="#{req.count}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Размерность</f:facet>
+                    <h:outputText value="#{req.type}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Дата заказа</f:facet>
+                    <h:outputText value="#{req.date}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ативен</f:facet>
+                    <h:selectBooleanCheckbox value="#{req.active}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
     </div>
 </h:body>
 </html>

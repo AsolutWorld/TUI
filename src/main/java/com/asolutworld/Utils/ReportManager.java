@@ -41,13 +41,5 @@ public class ReportManager {
         return document;
     }
 
-    public static void makeCSV(ResultSet data){
-        try {
-            CSVWriter csvWriter=new CSVWriter(new FileWriter("volunteer.csv"),'\t');
-            csvWriter.writeAll(data,true);
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
 
-    }
 }

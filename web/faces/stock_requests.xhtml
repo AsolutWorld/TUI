@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css" />
+    <title>БДВР</title>
+</h:head>
+<h:body>
+    <ui:include src="comps/title.xhtml"/>
+    <div class="main">
+        <h:dataTable value="#{databaseController.allRequests}" var="req">
+            <h:column>
+                <f:facet name="header">Ввод/вывод</f:facet>
+                <h:outputText value="#{req.in_out}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Пользователь</f:facet>
+                <h:outputText value="#{req.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Ресурс</f:facet>
+                <h:outputText value="#{req.resource}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Количество</f:facet>
+                <h:outputText value="#{req.count}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Размерность</f:facet>
+                <h:outputText value="#{req.type}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Дата</f:facet>
+                <h:outputText value="#{req.date}"/>
+            </h:column>
+        </h:dataTable>
+    </div>
+</h:body>
+
+</html>

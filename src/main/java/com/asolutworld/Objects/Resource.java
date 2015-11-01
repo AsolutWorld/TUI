@@ -1,6 +1,7 @@
 package main.java.com.asolutworld.Objects;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 public class Resource implements Serializable {
@@ -10,8 +11,9 @@ public class Resource implements Serializable {
     private String resource;
     private int count;
     private String type;
+    private Date date;
 
-    public Resource(int hres_id,int stock_id,String stock_name, String resource,int count, String type){
+    public Resource(int hres_id,int stock_id,String stock_name, String resource,int count, String type,Date date){
         this.hres_id=hres_id;
         this.stock_id=stock_id;
         this.stock_name=stock_name;
@@ -19,10 +21,21 @@ public class Resource implements Serializable {
         this.resource=resource;
         this.count=count;
         this.type=type;
+
+        this.date=date;
+
     }
 
     public String getStock_name() {
         return stock_name;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setStock_name(String stock_name) {

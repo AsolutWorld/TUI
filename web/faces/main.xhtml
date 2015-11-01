@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css" />
+    <title>БДВР</title>
+</h:head>
+<h:body>
+    <ui:include src="comps/title.xhtml"/>
+    <div class="main">
+        <h:form>
+            <h:dataTable value="#{databaseController.stocks}" var="sto">
+                <h:column>
+                    <f:facet name="header">Название</f:facet>
+                    <h:outputText value="#{sto.st_name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Адрес</f:facet>
+                    <h:outputText value="#{sto.address}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Телефон</f:facet>
+                    <h:outputText value="#{sto.phone}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Время работы</f:facet>
+                    <h:outputText value="#{sto.work_time}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Обзор</f:facet>
+                    <h:commandButton value="Открыть" action="stock">
+                        <f:param name="stock_id" value="#{sto.stock_id}"/>
+                    </h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Операции</f:facet>
+                    <h:commandButton value="Открыть" action="stock_requests">
+                        <f:param name="stock_id" value="#{sto.stock_id}"/>
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
+
+
+</h:body>
+</html>

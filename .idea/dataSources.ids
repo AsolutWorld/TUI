@@ -1569,14 +1569,6 @@
       <column name="viewowner" sqlType="name" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
       <column name="definition" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
     </table>
-    <table name="available_resources" schema="public" catalog="tui" type="TABLE">
-      <column name="hres_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="u_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="stock_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="resource" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
-      <column name="count" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="type" sqlType="text" precision="2147483647" scale="0" nullable="true" jdbcType="12"/>
-    </table>
     <table name="hresources" schema="public" catalog="tui" type="TABLE">
       <column name="hres_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnaHJlc291cmNlc19ocmVzX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="u_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -1584,6 +1576,7 @@
       <column name="resource" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="count" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="type" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
       <primary-key name="hresources_pkey" columns="hres_id"/>
       <index name="unique_hres_id" unique="true" columns="hres_id"/>
     </table>
@@ -1599,31 +1592,14 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
-    <table name="nres_people" schema="public" catalog="tui" type="TABLE">
-      <column name="nresp_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbnJlc19wZW9wbGVfbnJlc3BfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
-      <column name="name" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="address" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="phone" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="nres_people_pkey" columns="nresp_id"/>
-      <index name="unique_nresp_id" unique="true" columns="nresp_id"/>
-    </table>
-    <table name="nres_people_nresp_id_seq" schema="public" catalog="tui" type="SEQUENCE">
-      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
-      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
-      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
-    </table>
     <table name="nresources" schema="public" catalog="tui" type="TABLE">
       <column name="nres_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbnJlc291cmNlc19ucmVzX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
-      <column name="nresp_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="u_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="stock_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="resource" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="available" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7" def="dHJ1ZQ=="/>
+      <column name="count" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="type" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
       <primary-key name="nresources_pkey" columns="nres_id"/>
       <index name="unique_nres_id" unique="true" columns="nres_id"/>
     </table>
@@ -1639,16 +1615,19 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
-    <table name="records" schema="public" catalog="tui" type="TABLE">
-      <column name="rec_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVjb3Jkc19yZWNfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
-      <column name="rec_type" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="stock_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="hres_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="rec_time" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="records_pkey" columns="rec_id"/>
-      <index name="unique_rec_id" unique="true" columns="rec_id"/>
+    <table name="requests" schema="public" catalog="tui" type="TABLE">
+      <column name="req_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVxdWVzdHNfcmVxX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="u_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="address" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="resource" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="count" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="type" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="date" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="active" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7" def="dHJ1ZQ=="/>
+      <primary-key name="requests_pkey" columns="req_id"/>
+      <index name="unique_req_id" unique="true" columns="req_id"/>
     </table>
-    <table name="records_rec_id_seq" schema="public" catalog="tui" type="SEQUENCE">
+    <table name="requests_req_id_seq" schema="public" catalog="tui" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -1663,6 +1642,7 @@
     <table name="resources" schema="public" catalog="tui" type="TABLE">
       <column name="res_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgncmVzb3VyY2VzX3Jlc19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
       <column name="resource" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="type" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="resources_pkey" columns="res_id"/>
       <index name="unique_res_id" unique="true" columns="res_id"/>
     </table>
@@ -1682,6 +1662,7 @@
       <column name="stock_id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnc3RvY2tzX3N0b2NrX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="st_name" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="address" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="work_time" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="stocks_pkey" columns="stock_id"/>
       <index name="unique_stock_id" unique="true" columns="stock_id"/>
@@ -1704,7 +1685,7 @@
       <column name="pass" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="sname" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="fname" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
-      <column name="location" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="phone" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="access" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="hash" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>

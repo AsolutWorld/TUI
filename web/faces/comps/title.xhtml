@@ -7,7 +7,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <div class="titleBar">
-        <h:form>
+        <h:form rendered="#{login.isLogin}">
+            <h:commandButton value="Волонтеры" action="database"/>
+            <h:commandButton value="Склады" action="main"/>
+            <h:commandButton value="Запросы" action="requests"/>
+            <h:commandButton value="Профиль" action="user">
+                <f:param name="u_id" value="#{login.u_id}"/>
+            </h:commandButton>
             <h:commandButton value="Выйти" action="#{login.logout}"/>
         </h:form>
     </div>

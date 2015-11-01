@@ -13,35 +13,29 @@
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
-    <ui:include src="comps/menuLeft.xhtml"/>
     <div class="main">
 
         <h:form>
-            <h:commandButton value="Save data" action="#{databaseController.saveVolunteersChanges}"/>
             <h:dataTable id="volunteerTable" value="#{databaseController.volunteers}" var="volunteer">
                 <h:column>
-                    <f:facet name="header">Second Name</f:facet>
-                    <h:inputText value="#{volunteer.sname}" size="10" rendered="#{login.isAdmin}"/>
-                    <h:outputText value="#{volunteer.sname}" rendered="#{not login.isAdmin}"/>
+                    <f:facet name="header">Фамилия</f:facet>
+                    <h:outputText value="#{volunteer.sname}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">First Name</f:facet>
-                    <h:inputText value="#{volunteer.fname}" size="10" rendered="#{login.isAdmin}"/>
-                    <h:outputText value="#{volunteer.fname}" rendered="#{not login.isAdmin}"/>
+                    <f:facet name="header">Имя</f:facet>
+                    <h:outputText value="#{volunteer.fname}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Location</f:facet>
-                    <h:inputText value="#{volunteer.location}" size="10" rendered="#{login.isAdmin}"/>
-                    <h:outputText value="#{volunteer.location}" rendered="#{not login.isAdmin}"/>
+                    <f:facet name="header">Адрес</f:facet>
+                    <h:outputText value="#{volunteer.address}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Phone</f:facet>
-                    <h:inputText value="#{volunteer.phone}" size="10" rendered="#{login.isAdmin}"/>
-                    <h:outputText value="#{volunteer.phone}" rendered="#{not login.isAdmin}"/>
+                    <f:facet name="header">Телефон</f:facet>
+                    <h:outputText value="#{volunteer.phone}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Profile</f:facet>
-                    <h:commandButton value="Show" action="#{tui.user}">
+                    <f:facet name="header">Профиль</f:facet>
+                    <h:commandButton value="Открыть" action="user">
                         <f:param name="u_id" value="#{volunteer.u_id}"/>
                     </h:commandButton>
                 </h:column>

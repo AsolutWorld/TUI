@@ -21,6 +21,7 @@ public class Login implements Serializable {
 	private String msg;
 	private String user;
 	private String valid;
+	private int u_id;
     private boolean isAdmin=false;
 
 	public String getPwd() {
@@ -54,25 +55,36 @@ public class Login implements Serializable {
     public void setValid(String valid) {
         this.valid = valid;
     }
+
+    public int getU_id() {
+        return u_id;
+    }
+
+    public void setU_id(int u_id) {
+        this.u_id = u_id;
+    }
+
     //validate login
 
-	public String validateUsernamePassword() {
+    public String validateUsernamePassword() {
 		valid = LoginDAO.validate(user, pwd);
 		if (valid.equals(Strings.ADMIN))isAdmin=true;
         else isAdmin=false;
 		if (valid.equals(Strings.ADMIN)||valid.equals(Strings.USER)) {
 			HttpSession session = SessionBean.getSession();
 			session.setAttribute("u_id",LoginDAO.getU_ID());
+            u_id=LoginDAO.getU_ID();
+
             session.setAttribute("username", user);
             session.setAttribute("role",valid);
-			return "database";
+			return "/faces/main";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN,
 							"Incorrect Username and Passowrd",
 							"Please enter correct username and Password"));
-			return "home";
+			return "index";
 		}
 	}
 
@@ -80,7 +92,13 @@ public class Login implements Serializable {
 	public String logout() {
 		HttpSession session = SessionBean.getSession();
 		session.invalidate();
-		return "home";
+		return "index";
+	}
+
+	public boolean getIsLogin(){
+		HttpSession session = SessionBean.getSession();
+		if(session.getAttribute("u_id")==null)return false;
+		else return true;
 	}
 
     public boolean getIsAdmin(){

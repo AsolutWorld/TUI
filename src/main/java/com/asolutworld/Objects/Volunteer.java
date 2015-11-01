@@ -11,15 +11,15 @@ public class Volunteer implements Serializable {
     private int u_id;
     private String sname;
     private String fname;
-    private String location;
+    private String address;
     private String phone;
     private String role;
 
-    public Volunteer(int u_id,String sname,String fname,String location,String phone,String role){
+    public Volunteer(int u_id,String sname,String fname,String address,String phone,String role){
         this.u_id=u_id;
         this.sname=sname;
         this.fname=fname;
-        this.location=location;
+        this.address=address;
         this.phone=phone;
         this.role=role;
     }
@@ -68,12 +68,12 @@ public class Volunteer implements Serializable {
         this.fname = fname;
     }
 
-    public String getLocation() {
-        return location;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {

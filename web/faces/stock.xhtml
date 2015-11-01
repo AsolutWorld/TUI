@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet library="css" name="styles.css" />
+    <title>Пользователь #{login.user}</title>
+</h:head>
+<h:body>
+    <ui:include src="comps/title.xhtml"/>
+    <div class="main">
+
+        <h:form>
+            <table>
+                <tr>
+                    <td>
+                        <h:outputText value="Название"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.stock.st_name}" rendered="#{login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.st_name}" rendered="#{not login.isAdmin}"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h:outputText value="Адрес"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.stock.address}" rendered="#{login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.address}" rendered="#{not login.isAdmin}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="Телефон"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.stock.phone}" rendered="#{login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.phone}" rendered="#{not login.isAdmin}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h:outputText value="Время работы"/>
+                    </td>
+                    <td>
+                        <h:inputText value="#{databaseController.stock.work_time}" rendered="#{login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.work_time}" rendered="#{not login.isAdmin}"/>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+
+        <h:form>
+            <h:outputText value="Нет ресурсов" rendered="#{empty databaseController.stockResources}"/>
+            <h:dataTable id="userTable" value="#{databaseController.stockResources}" var="resource"
+                         rendered="#{not empty databaseController.stockResources}">
+                <h:column>
+                    <f:facet name="header">Resource</f:facet>
+                    <h:outputText value="#{resource.resource}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Count</f:facet>
+                    <h:outputText value="#{resource.count}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                    <h:outputText value="#{resource.type}"/>
+                </h:column>
+            </h:dataTable>
+
+        </h:form>
+    </div>
+</h:body>
+</html>
