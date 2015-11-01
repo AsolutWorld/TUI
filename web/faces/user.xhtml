@@ -6,12 +6,13 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <h:outputStylesheet library="css" name="styles.css" />
+    <h:outputStylesheet name="/css/styles.css"/>
     <title>Пользователь #{login.user}</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
+
 
         <h:form>
             <table>
@@ -20,8 +21,7 @@
                         <h:outputText value="Фамилия"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.volunteer.sname}" rendered="#{databaseController.volunteer.myProfile}"/>
-                        <h:outputText value="#{databaseController.volunteer.sname}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.sname}"/>
                     </td>
                 </tr>
                 <tr>
@@ -29,17 +29,15 @@
                         <h:outputText value="Имя"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.volunteer.fname}" rendered="#{databaseController.volunteer.myProfile}"/>
-                        <h:outputText value="#{databaseController.volunteer.fname}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.fname}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h:outputText value="Адрес"/>
+                        <h:outputText value="E-Mail"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.volunteer.address}" rendered="#{databaseController.volunteer.myProfile}"/>
-                        <h:outputText value="#{databaseController.volunteer.address}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.address}"/>
                     </td>
                 </tr>
                 <tr>
@@ -47,36 +45,38 @@
                         <h:outputText value="Телефон"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.volunteer.phone}" rendered="#{databaseController.volunteer.myProfile}"/>
-                        <h:outputText value="#{databaseController.volunteer.phone}" rendered="#{not databaseController.volunteer.myProfile}"/>
+                        <h:outputText value="#{databaseController.volunteer.phone}" />
                     </td>
                 </tr>
             </table>
-            <h:commandButton value="Сохранить изменения" action="#{databaseController.saveVolunteerChanges}" rendered="#{databaseController.volunteer.myProfile}"/>
+            <h:commandButton value="Добавить ресурс" action="new_hresource"/>
+            <h:commandButton value="Взять ресурс" action="new_nresource"/>
         </h:form>
 
         <h:form>
             <h:outputText value="Нет ресурсов" rendered="#{empty databaseController.uresources}"/>
             <h:dataTable id="userTable" value="#{databaseController.uresources}" var="uresource"
+                         styleClass="employeeTable"
+                         headerClass="employeeTableHeader"
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow"
                          rendered="#{not empty databaseController.uresources}">
                 <h:column>
-                    <f:facet name="header">Stock</f:facet>
+                    <f:facet name="header">Склад</f:facet>
                     <h:outputText value="#{uresource.stock_name}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Resource</f:facet>
+                    <f:facet name="header">Ресурс</f:facet>
                     <h:outputText value="#{uresource.resource}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Count</f:facet>
+                    <f:facet name="header">Количество</f:facet>
                     <h:outputText value="#{uresource.count}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Type</f:facet>
+                    <f:facet name="header">Размерность</f:facet>
                     <h:outputText value="#{uresource.type}"/>
                 </h:column>
             </h:dataTable>
-
         </h:form>
     </div>
 </h:body>

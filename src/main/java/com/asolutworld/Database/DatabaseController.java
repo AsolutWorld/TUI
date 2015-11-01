@@ -41,9 +41,6 @@ public class DatabaseController {
     private static final String GET_STOCK="SELECT stocks.st_name,stocks.address,stocks.phone,stocks.work_time FROM stocks WHERE stocks.stock_id=?";
     private static final String GET_STOCKS="SELECT stocks.stock_id,stocks.st_name,stocks.address,stocks.phone,stocks.work_time FROM stocks";
 
-    private static final String UPDATE_VOLUNTEERS="UPDATE volunteers SET sname=?,fname=?,address=?,phone=?,access=? WHERE u_id=?";
-    private static final String UPDATE_VOLUNTEER_RESOURCES="UPDATE hresources SET resource=?,count=?,type=? WHERE u_id=?";
-    private static final String UPDATE_STOCK_RESOURCES="UPDATE hresources SET resource=?,count=?,type=? WHERE stock_id=?";
     private ArrayList<Volunteer> volunteers;
     public ArrayList<Volunteer> getVolunteers(){
         collectVolunteerData();
@@ -125,15 +122,15 @@ public class DatabaseController {
 
 
 
-    private ArrayList<SResource> stockResources;
+    private ArrayList<SResource> sstockResources;
 
-    public ArrayList<SResource> getStockResources(){
+    public ArrayList<SResource> getSstockResources(){
         String s=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("stock_id");
         if(s==null)s="-1";
         int stock_id=Integer.valueOf(s);
-        stockResources=collectStockResourcesData(stock_id);
+        sstockResources=collectStockResourcesData(stock_id);
 
-        return stockResources;
+        return sstockResources;
     }
     private ArrayList<SResource> collectStockResourcesData(int stock_id){
         ArrayList<SResource> resources=new ArrayList<>();
@@ -244,29 +241,7 @@ public class DatabaseController {
         return vol;
     }
 
-    public String saveVolunteerChanges(){
-        try {
-            Connection connection= DataConnection.getConnecion();
-            if (connection != null) {
 
-                PreparedStatement prep=connection.prepareStatement(UPDATE_VOLUNTEERS);
-                prep.setString(1,volunteer.getSname());
-                prep.setString(2,volunteer.getFname());
-                prep.setString(3,volunteer.getAddress());
-                prep.setString(4,volunteer.getPhone());
-                prep.setString(5,volunteer.getRole());
-                prep.setInt(6, volunteer.getU_id());
-                prep.execute();
-
-
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
     public void setVolunteer(Volunteer volunteer) {
         this.volunteer = volunteer;
@@ -321,9 +296,6 @@ public class DatabaseController {
         this.stock = stock;
     }
 
-    public void setStockResources(ArrayList<SResource> stockResources) {
-        this.stockResources = stockResources;
-    }
 
     public void setStocks(ArrayList<Stock> stocks) {
         this.stocks = stocks;
@@ -460,5 +432,7 @@ public class DatabaseController {
         }
         return req;
     }
+
+
 
 }

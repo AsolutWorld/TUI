@@ -6,13 +6,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <h:outputStylesheet library="css" name="styles.css" />
+    <h:outputStylesheet name="/css/styles.css" />
     <title>БДВР</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
-        <h:dataTable value="#{databaseController.allRequests}" var="req">
+        <h:dataTable value="#{databaseController.allRequests}" var="req"
+                     styleClass="employeeTable"
+                     headerClass="employeeTableHeader"
+                     rowClasses="employeeTableOddRow,employeeTableEvenRow">
             <h:column>
                 <f:facet name="header">Ввод/вывод</f:facet>
                 <h:outputText value="#{req.in_out}"/>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ace="http://www.icefaces.org/icefaces/components">
 <h:head>
     <h:outputStylesheet name="/css/styles.css" />
     <title>БДВР</title>
@@ -14,25 +14,28 @@
     <div class="main">
         <h:form>
             <p>
-                Адрес:
-            </p>
-            <h:inputText value="#{nRequest.address}"/>
-            <p>
-                Ресурс:
+                Склад:
             </p>
             <h:selectOneMenu value="#{nRequest.resource}" onchange="submit()" valueChangeListener="#{nRequest.onChangeListener}">
                 <f:selectItems value="#{nRequest.resources}"/>
             </h:selectOneMenu>
+            <p>
+                Ресурс:
+            </p>
+            <h:selectOneMenu value="#{nHResource.resource}" onchange="submit()" valueChangeListener="#{nHResource.onChangeListener}">
+                <f:selectItems value="#{nHResource.resources}"/>
+            </h:selectOneMenu>
             Размерность:
-            <h:outputText value="#{nRequest.type}"/>
+            <h:outputText value="#{nHResource.type}"/>
             <p>
                 Количество:
             </p>
-            <h:inputText value="#{nRequest.ccount}"/>
+            <h:inputText value="#{nHResource.ccount}"/>
 
-            <h:commandButton value="Добавить" action="#{nRequest.addRequest}"/>
+            <h:commandButton value="Взять" action="#{nHResource.subHresource}"/>
 
         </h:form>
+
     </div>
 </h:body>
 </html>

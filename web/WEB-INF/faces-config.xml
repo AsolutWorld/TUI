@@ -38,8 +38,20 @@
             <to-view-id>/faces/new_request.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>new_hresource</from-outcome>
+            <to-view-id>/faces/new_hresource.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new_nresource</from-outcome>
+            <to-view-id>/faces/new_nresource.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>new_resource</from-outcome>
             <to-view-id>/faces/new_resource.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/faces/public/register.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

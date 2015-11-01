@@ -7,16 +7,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:form>
     <p>
-        Name:
+        Логин:
     </p>
     <h:inputText id="username" value="#{login.user}" />
     <h:message for="username"/>
     <p>
-        Password:
+        Пароль:
     </p>
     <h:inputSecret id="password" value="#{login.pwd}" />
     <h:message for="password"/>
 
-    <h:commandButton id="loginButton" value="Login" action="#{login.validateUsernamePassword}" />
+    <h:commandButton id="loginButton" value="Вход" action="#{login.validateUsernamePassword}" />
 </h:form>
 </html>

@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
-    <h:outputStylesheet library="css" name="styles.css" />
+    <h:outputStylesheet name="/css/styles.css" />
     <title>Пользователь #{login.user}</title>
 </h:head>
 <h:body>
@@ -20,8 +20,7 @@
                         <h:outputText value="Название"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.stock.st_name}" rendered="#{login.isAdmin}"/>
-                        <h:outputText value="#{databaseController.stock.st_name}" rendered="#{not login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.st_name}"/>
                     </td>
                 </tr>
 
@@ -30,8 +29,7 @@
                         <h:outputText value="Адрес"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.stock.address}" rendered="#{login.isAdmin}"/>
-                        <h:outputText value="#{databaseController.stock.address}" rendered="#{not login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.address}"/>
                     </td>
                 </tr>
                 <tr>
@@ -39,8 +37,7 @@
                         <h:outputText value="Телефон"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.stock.phone}" rendered="#{login.isAdmin}"/>
-                        <h:outputText value="#{databaseController.stock.phone}" rendered="#{not login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.phone}"/>
                     </td>
                 </tr>
                 <tr>
@@ -48,28 +45,29 @@
                         <h:outputText value="Время работы"/>
                     </td>
                     <td>
-                        <h:inputText value="#{databaseController.stock.work_time}" rendered="#{login.isAdmin}"/>
-                        <h:outputText value="#{databaseController.stock.work_time}" rendered="#{not login.isAdmin}"/>
+                        <h:outputText value="#{databaseController.stock.work_time}"/>
                     </td>
                 </tr>
             </table>
         </h:form>
 
         <h:form>
-            <h:outputText value="Нет ресурсов" rendered="#{empty databaseController.stockResources}"/>
-            <h:dataTable id="userTable" value="#{databaseController.stockResources}" var="resource"
-                         rendered="#{not empty databaseController.stockResources}">
+            <h:outputText value="Нет ресурсов" rendered="#{empty databaseController.sstockResources}"/>
+            <h:dataTable value="#{databaseController.sstockResources}" var="res"
+                         styleClass="employeeTable"
+                         headerClass="employeeTableHeader"
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
                 <h:column>
-                    <f:facet name="header">Resource</f:facet>
-                    <h:outputText value="#{resource.resource}"/>
+                    <f:facet name="header">Ресурс</f:facet>
+                    <h:outputText value="#{res.resource}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Count</f:facet>
-                    <h:outputText value="#{resource.count}"/>
+                    <f:facet name="header">Количество</f:facet>
+                    <h:outputText value="#{res.count}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Type</f:facet>
-                    <h:outputText value="#{resource.type}"/>
+                    <f:facet name="header">Размерность</f:facet>
+                    <h:outputText value="#{res.type}"/>
                 </h:column>
             </h:dataTable>
 
