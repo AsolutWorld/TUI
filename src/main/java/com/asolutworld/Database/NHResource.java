@@ -21,9 +21,10 @@ public class NHResource {
     private String ccount;
 
     private static final String GET_RESOURCES="SELECT resources.resource, resources.type FROM resources";
-    private String ADD_HRESOURCE="INSERT INTO hresources VALUES (DEFAULT ,?,?,?,?,?,current_date)";
-    private String SUB_HRESOURCE="INSERT INTO nresources VALUES (DEFAULT ,?,?,?,?,?,current_date)";
-    private String FIND_STOCK="SELECT stock_id FROM stocks WHERE st_name=?;";
+    private static final String GET_STOCKS="SELECT stocks.st_name FROM stocks";
+    private static final String ADD_HRESOURCE="INSERT INTO hresources VALUES (DEFAULT ,?,?,?,?,?,current_date)";
+    private static final String SUB_HRESOURCE="INSERT INTO nresources VALUES (DEFAULT ,?,?,?,?,?,current_date)";
+    private static final String FIND_STOCK="SELECT stock_id FROM stocks WHERE st_name=?;";
 
     private ArrayList<String> resources;
     private ArrayList<String> types;
@@ -32,6 +33,37 @@ public class NHResource {
         collectResources();
 
         return resources;
+    }
+
+    private ArrayList<String> stocks;
+    public ArrayList<String> getStocks(){
+        collectStocks();
+        return stocks;
+    }
+
+    public void setStocks(ArrayList<String> stocks) {
+        this.stocks = stocks;
+    }
+
+    private void collectStocks(){
+        stocks=new ArrayList<>();
+        try {
+            Connection connection= DataConnection.getConnecion();
+            if (connection != null) {
+
+
+                PreparedStatement prep=connection.prepareStatement(GET_STOCKS);
+                ResultSet resultSet=prep.executeQuery();
+
+                connection.close();
+
+                while (resultSet.next()){
+                    stocks.add(resultSet.getString(1));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String addHresource(){

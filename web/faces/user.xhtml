@@ -54,6 +54,7 @@
         </h:form>
 
         <h:form>
+            <h:commandButton value="Скачать"/>
             <h:outputText value="Нет ресурсов" rendered="#{empty databaseController.uresources}"/>
             <h:dataTable id="userTable" value="#{databaseController.uresources}" var="uresource"
                          styleClass="employeeTable"

@@ -12,35 +12,39 @@
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
-        <h:dataTable value="#{databaseController.allRequests}" var="req"
-                     styleClass="employeeTable"
-                     headerClass="employeeTableHeader"
-                     rowClasses="employeeTableOddRow,employeeTableEvenRow">
-            <h:column>
-                <f:facet name="header">Ввод/вывод</f:facet>
-                <h:outputText value="#{req.in_out}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Пользователь</f:facet>
-                <h:outputText value="#{req.name}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Ресурс</f:facet>
-                <h:outputText value="#{req.resource}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Количество</f:facet>
-                <h:outputText value="#{req.count}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Размерность</f:facet>
-                <h:outputText value="#{req.type}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Дата</f:facet>
-                <h:outputText value="#{req.date}"/>
-            </h:column>
-        </h:dataTable>
+        <h:form>
+            <h:commandButton value="Скачать"/>
+            <h:dataTable value="#{databaseController.allRequests}" var="req"
+                         styleClass="employeeTable"
+                         headerClass="employeeTableHeader"
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+                <h:column>
+                    <f:facet name="header">Ввод/вывод</f:facet>
+                    <h:outputText value="#{req.in_out}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Пользователь</f:facet>
+                    <h:outputText value="#{req.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ресурс</f:facet>
+                    <h:outputText value="#{req.resource}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Количество</f:facet>
+                    <h:outputText value="#{req.count}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Размерность</f:facet>
+                    <h:outputText value="#{req.type}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Дата</f:facet>
+                    <h:outputText value="#{req.date}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
     </div>
 </h:body>
 

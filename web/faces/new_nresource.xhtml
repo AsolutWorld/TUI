@@ -16,8 +16,8 @@
             <p>
                 Склад:
             </p>
-            <h:selectOneMenu value="#{nRequest.resource}" onchange="submit()" valueChangeListener="#{nRequest.onChangeListener}">
-                <f:selectItems value="#{nRequest.resources}"/>
+            <h:selectOneMenu value="#{nHResource.stock}" onchange="submit()">
+                <f:selectItems value="#{nHResource.stocks}"/>
             </h:selectOneMenu>
             <p>
                 Ресурс:
