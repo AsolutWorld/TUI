@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet name="/css/styles.css" />
+    <title>Новый транспорт</title>
+</h:head>
+<h:body>
+    <ui:include src="comps/title.xhtml"/>
+    <div class="main">
+        <h2>
+            Новый транспорт
+        </h2>
+        <h:form>
+            <p>
+                Номер:
+            </p>
+            <h:inputText value="#{nNTransport.number}"/>
+            <p>
+                Описание:
+            </p>
+            <h:inputText value="#{nNTransport.descr}"/>
+            <p>
+                Тип транспорта:
+            </p>
+            <h:selectOneMenu value="#{nNTransport.type}">
+                <f:selectItem itemValue="Грузовая"/>
+                <f:selectItem itemValue="Легковая"/>
+            </h:selectOneMenu>
+
+            <p>
+                Адрес гаража:
+            </p>
+            <h:inputText value="#{nNTransport.address}"/>
+
+            <p>
+                Телефон:
+            </p>
+            <h:inputText value="#{nNTransport.phone}"/>
+            <p>
+                Время работы:
+            </p>
+            <h:inputText value="#{nNTransport.work_time}"/>
+
+            <h:commandButton value="Добавить" action="#{nNTransport.addTransport}"/>
+
+        </h:form>
+
+    </div>
+</h:body>
+</html>

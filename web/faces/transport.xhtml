@@ -3,54 +3,54 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:composite="http://java.sun.com/jsf/composite">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <h:outputStylesheet name="/css/styles.css" />
-    <title>База данных волонтеров</title>
+    <title>База данных транспортных средств</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
-        <h2>
-            База данных волонтеров
-        </h2>
         <h:form>
-            <h:commandButton value="Скачать" action="#{databaseController.downloadVolunteersFile}"/>
-            <h:dataTable id="volunteerTable" value="#{databaseController.volunteers}" var="volunteer"
+            <h2>
+                База данных транспортных средств
+            </h2>
+            <h:commandButton value="Новый транспорт" action="new_transport" rendered="#{login.isAdmin}"/>
+
+            <h:dataTable value="#{nTransport.transports}" var="sto"
                          styleClass="employeeTable"
                          headerClass="employeeTableHeader"
                          rowClasses="employeeTableOddRow,employeeTableEvenRow" border="1">
                 <h:column>
-                    <f:facet name="header">Фамилия</f:facet>
-                    <h:outputText value="#{volunteer.sname}"/>
+                    <f:facet name="header">Номер</f:facet>
+                    <h:outputText value="#{sto.number}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Имя</f:facet>
-                    <h:outputText value="#{volunteer.fname}"/>
+                    <f:facet name="header">Описание</f:facet>
+                    <h:outputText value="#{sto.descr}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Тип транспорта</f:facet>
+                    <h:outputText value="#{sto.type}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Адрес</f:facet>
-                    <h:outputText value="#{volunteer.address}"/>
+                    <h:outputText value="#{sto.address}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Телефон</f:facet>
-                    <h:outputText value="#{volunteer.phone}"/>
+                    <h:outputText value="#{sto.phone}"/>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Профиль</f:facet>
-                    <h:commandButton value="Открыть" action="user">
-                        <f:param name="u_id" value="#{volunteer.u_id}"/>
-                    </h:commandButton>
+                    <f:facet name="header">Время работы</f:facet>
+                    <h:outputText value="#{sto.work_time}"/>
                 </h:column>
             </h:dataTable>
-
         </h:form>
-
     </div>
 
 
 </h:body>
+
 </html>

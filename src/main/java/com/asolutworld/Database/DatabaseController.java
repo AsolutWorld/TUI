@@ -1,11 +1,17 @@
 package main.java.com.asolutworld.Database;
 
+import main.java.com.asolutworld.Authorization.dao.LoginDAO;
 import main.java.com.asolutworld.Objects.*;
 import main.java.com.asolutworld.Utils.DataConnection;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +40,7 @@ public class DatabaseController {
     private static final String GET_NRESOURCES ="SELECT concat(volunteers.fname, ' ', volunteers.sname), nresources.resource, nresources.count,nresources.type,\n" +
             "  nresources.date FROM nresources,volunteers WHERE (volunteers.u_id=nresources.u_id) AND (nresources.stock_id=?)";
     private static final String GET_REQUESTS="SELECT concat(volunteers.fname,' ',volunteers.sname),requests.address,requests.resource,requests.count,\n" +
-            "  requests.type,requests.date,requests.active FROM requests,volunteers WHERE volunteers.u_id=requests.u_id";
+            "  requests.type,requests.date,requests.active, requests.req_id FROM requests,volunteers WHERE volunteers.u_id=requests.u_id";
 
     private static final String GET_VOLUNTEER="SELECT volunteers.u_id,volunteers.sname,volunteers.fname,volunteers.address\n" +
             "  ,volunteers.phone, volunteers.access FROM volunteers WHERE volunteers.u_id=?";
@@ -45,6 +51,38 @@ public class DatabaseController {
     public ArrayList<Volunteer> getVolunteers(){
         collectVolunteerData();
         return volunteers;
+    }
+
+    public void downloadVolunteersFile() {
+        ReportManager.makeCSV(volunteers);
+        File file = new File(String.valueOf(LoginDAO.getU_ID())+"-volunteers.csv");
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.setHeader("Content-Disposition", "attachment;filename="+String.valueOf(LoginDAO.getU_ID())+"-volunteers.csv");
+        response.setContentLength((int) file.length());
+        ServletOutputStream out = null;
+        try {
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            out = response.getOutputStream();
+            int i = 0;
+            while ((i = input.read(buffer)) != -1) {
+                out.write(buffer);
+                out.flush();
+            }
+            FacesContext.getCurrentInstance().getResponseComplete();
+        } catch (IOException err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
+
     }
 
     private void collectVolunteerData(){
@@ -74,6 +112,191 @@ public class DatabaseController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void downloadUresourcesFile() {
+        ReportManager.makeurCSV(uresources);
+        File file = new File(String.valueOf(LoginDAO.getU_ID())+"-uresources.csv");
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.setHeader("Content-Disposition", "attachment;filename="+String.valueOf(LoginDAO.getU_ID())+"-uresources.csv");
+        response.setContentLength((int) file.length());
+        ServletOutputStream out = null;
+        try {
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            out = response.getOutputStream();
+            int i = 0;
+            while ((i = input.read(buffer)) != -1) {
+                out.write(buffer);
+                out.flush();
+            }
+            FacesContext.getCurrentInstance().getResponseComplete();
+        } catch (IOException err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
+
+    }
+
+    public void downloadRequestsFile() {
+        ReportManager.makereqCSV(requests);
+        File file = new File(String.valueOf(LoginDAO.getU_ID())+"-requests.csv");
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.setHeader("Content-Disposition", "attachment;filename="+String.valueOf(LoginDAO.getU_ID())+"-requests.csv");
+        response.setContentLength((int) file.length());
+        ServletOutputStream out = null;
+        try {
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            out = response.getOutputStream();
+            int i = 0;
+            while ((i = input.read(buffer)) != -1) {
+                out.write(buffer);
+                out.flush();
+            }
+            FacesContext.getCurrentInstance().getResponseComplete();
+        } catch (IOException err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
+
+    }
+
+        public void downloadStocksFile() {
+            ReportManager.makestsCSV(stocks);
+            File file = new File(String.valueOf(LoginDAO.getU_ID())+"-stocks.csv");
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+            response.setHeader("Content-Disposition", "attachment;filename="+String.valueOf(LoginDAO.getU_ID())+"-stocks.csv");
+            response.setContentLength((int) file.length());
+            ServletOutputStream out = null;
+            try {
+                FileInputStream input = new FileInputStream(file);
+                byte[] buffer = new byte[1024];
+                out = response.getOutputStream();
+                int i = 0;
+                while ((i = input.read(buffer)) != -1) {
+                    out.write(buffer);
+                    out.flush();
+                }
+                FacesContext.getCurrentInstance().getResponseComplete();
+            } catch (IOException err) {
+                err.printStackTrace();
+            } finally {
+                try {
+                    if (out != null) {
+                        out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
+
+    }
+
+    private String UPDATE_REQUESTS="UPDATE requests SET active=? WHERE req_id=?";
+    public void updateRequests(){
+        try {
+            Connection connection= DataConnection.getConnecion();
+            if (connection != null) {
+
+                for (SRequest req:requests){
+
+                    PreparedStatement prep=connection.prepareStatement(UPDATE_REQUESTS);
+                    prep.setInt(1, LoginDAO.getU_ID());
+                    prep.setInt(2, req.getReq_id());
+
+                    prep.execute();
+                }
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void downloadStockFile() {
+        String s=(String.valueOf(LoginDAO.getU_ID()) + "-" + stock.getSt_name() + "-stock.csv").replace(' ','_');
+        ReportManager.makestCSV(sstockResources, s);
+        File file = new File(s);
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.setHeader("Content-Disposition", "attachment;filename="+s);
+        response.setContentLength((int) file.length());
+        ServletOutputStream out = null;
+        try {
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            out = response.getOutputStream();
+            int i = 0;
+            while ((i = input.read(buffer)) != -1) {
+                out.write(buffer);
+                out.flush();
+            }
+            FacesContext.getCurrentInstance().getResponseComplete();
+        } catch (IOException err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
+
+    }
+
+    public void downloadStockReqFile() {
+        String s=(String.valueOf(LoginDAO.getU_ID())+"-"+stock.getSt_name()+"-stock_req.csv").replace(' ', '_');
+        ReportManager.makestrCSV(allRequests, s);
+        File file = new File(s);
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.setHeader("Content-Disposition", "attachment;filename="+s);
+        response.setContentLength((int) file.length());
+        ServletOutputStream out = null;
+        try {
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            out = response.getOutputStream();
+            int i = 0;
+            while ((i = input.read(buffer)) != -1) {
+                out.write(buffer);
+                out.flush();
+            }
+            FacesContext.getCurrentInstance().getResponseComplete();
+        } catch (IOException err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
+
     }
 
     private ArrayList<Resource> uresources;
@@ -422,7 +645,7 @@ public class DatabaseController {
 
                 while (res.next()){
                     req.add(new SRequest(res.getString(1),res.getString(2),res.getString(3),res.getInt(4),
-                            res.getString(5),res.getDate(6),res.getBoolean(7)));
+                            res.getString(5),res.getDate(6),res.getBoolean(7),res.getInt(8)));
                 }
 
             }

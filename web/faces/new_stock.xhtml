@@ -7,35 +7,38 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <h:outputStylesheet name="/css/styles.css" />
-    <title>Новый запрос</title>
+    <title>Новый склад</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
         <h2>
-            Новый запрос
+            Новый склад
         </h2>
         <h:form>
             <p>
+                Название:
+            </p>
+            <h:inputText value="#{nNStock.name}"/>
+
+            <p>
                 Адрес:
             </p>
-            <h:inputText value="#{nRequest.address}"/>
-            <p>
-                Ресурс:
-            </p>
-            <h:selectOneMenu value="#{nRequest.resource}" onchange="submit()" valueChangeListener="#{nRequest.onChangeListener}">
-                <f:selectItems value="#{nRequest.resources}"/>
-            </h:selectOneMenu>
-            Размерность:
-            <h:outputText value="#{nRequest.type}"/>
-            <p>
-                Количество:
-            </p>
-            <h:inputText value="#{nRequest.ccount}"/>
+            <h:inputText value="#{nNStock.address}"/>
 
-            <h:commandButton value="Добавить" action="#{nRequest.addRequest}"/>
+            <p>
+                Телефон:
+            </p>
+            <h:inputText value="#{nNStock.phone}"/>
+            <p>
+                Время работы:
+            </p>
+            <h:inputText value="#{nNStock.work_time}"/>
+
+            <h:commandButton value="Добавить" action="#{nNStock.addStock}"/>
 
         </h:form>
+
     </div>
 </h:body>
 </html>

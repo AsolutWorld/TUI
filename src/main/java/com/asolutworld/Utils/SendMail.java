@@ -39,8 +39,8 @@ public class SendMail {
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(mail));
-            message.setSubject("Подтверждение регистрации");
-            message.setText("https://localhost:8080/TUI_war_exploded/faces/public/reg_complete.xhtml?login="+
+            message.setSubject("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЂРµРіРёСЃС‚СЂР°С†РёРё");
+            message.setText("http://localhost:8080/TUI_war_exploded/faces/public/reg_complete.xhtml?login="+
                             login+"&hash="+hash);
 
             Transport.send(message);

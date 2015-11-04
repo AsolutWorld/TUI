@@ -1,16 +1,20 @@
 package main.java.com.asolutworld.Database;
 
 import main.java.com.asolutworld.Authorization.dao.LoginDAO;
+import main.java.com.asolutworld.Objects.SRequest;
+import main.java.com.asolutworld.Objects.SResource;
 import main.java.com.asolutworld.Utils.DataConnection;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @ManagedBean
 @SessionScoped
@@ -19,6 +23,7 @@ public class NHResource {
     private String resource;
     private String type="Rechoose resource";
     private String ccount;
+    private boolean show=false;
 
     private static final String GET_RESOURCES="SELECT resources.resource, resources.type FROM resources";
     private static final String GET_STOCKS="SELECT stocks.st_name FROM stocks";
@@ -46,6 +51,9 @@ public class NHResource {
     }
 
     private void collectStocks(){
+
+
+
         stocks=new ArrayList<>();
         try {
             Connection connection= DataConnection.getConnecion();
@@ -91,6 +99,19 @@ public class NHResource {
     }
 
     public String subHresource(){
+        ArrayList<SResource> q=getSstockResources();
+        SResource ss=new SResource("",0,"");
+        for(int i=0;i<q.size();i++){
+            if(q.get(i).getResource().equals(resource)){
+                ss=q.get(i);
+            }
+        }
+        if(ss.getCount()<Integer.parseInt(ccount)||ss.getCount()<1){
+            show=true;
+            return "home";
+        }
+
+        show=false;
         try {
             Connection connection= DataConnection.getConnecion();
             if (connection != null) {
@@ -206,6 +227,83 @@ public class NHResource {
 
     public void setResource(String resource) {
         this.resource = resource;
+    }
+
+    private static final String GET_ASTOCK_RESOURCES="SELECT hresources.resource, hresources.count, hresources.type\n" +
+            "FROM hresources WHERE (hresources.stock_id=?)";
+    private static final String GET_NSTOCK_RESOURCES="SELECT nresources.resource, nresources.count, nresources.type\n" +
+            "FROM nresources WHERE (nresources.stock_id=?)";
+
+    private ArrayList<SResource> sstockResources;
+
+    public ArrayList<SResource> getSstockResources(){
+        String s=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("stock_id");
+        if(s==null)s="-1";
+        int stock_id=Integer.valueOf(s);
+        sstockResources=collectStockResourcesData(stock_id);
+
+        return sstockResources;
+    }
+    private ArrayList<SResource> collectStockResourcesData(int stock_id){
+        ArrayList<SResource> resources=new ArrayList<>();
+        ArrayList<SResource> aresources=new ArrayList<>();
+        ArrayList<SResource> nresources=new ArrayList<>();
+        try {
+            Connection connection=DataConnection.getConnecion();
+            if(connection!=null){
+                PreparedStatement prep=connection.prepareStatement(GET_ASTOCK_RESOURCES);
+                prep.setInt(1,stock_id);
+
+                ResultSet res=prep.executeQuery();
+                while (res.next()) {
+                    aresources.add(new SResource(
+                                    res.getString(1),
+                                    res.getInt(2),
+                                    res.getString(3)
+                            )
+                    );
+                }
+
+                prep=connection.prepareStatement(GET_RESOURCES);
+                res=prep.executeQuery();
+                while (res.next()){
+                    resources.add(new SResource(res.getString(1),0,res.getString(2)));
+                }
+
+                prep=connection.prepareStatement(GET_NSTOCK_RESOURCES);
+                prep.setInt(1,stock_id);
+
+                res=prep.executeQuery();
+                while (res.next()){
+                    nresources.add(new SResource(res.getString(1),res.getInt(2),res.getString(3)));
+                }
+
+                connection.close();
+
+                resources=makeASResources(resources,aresources,nresources);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resources;
+    }
+
+    private ArrayList<SResource> makeASResources(ArrayList<SResource> resources,ArrayList<SResource> aresources,
+                                                 ArrayList<SResource> nresources){
+        for(SResource res:resources){
+            for(SResource r:aresources){
+                if(r.getResource().equals(res.getResource())){
+                    res.setCount(res.getCount()+r.getCount());
+                }
+            }
+            for(SResource r:nresources){
+                if(r.getResource().equals(res.getResource())){
+                    res.setCount(res.getCount()-r.getCount());
+                }
+            }
+        }
+        return resources;
     }
 
 }

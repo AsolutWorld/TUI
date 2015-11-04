@@ -7,11 +7,14 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ace="http://www.icefaces.org/icefaces/components">
 <h:head>
     <h:outputStylesheet name="/css/styles.css" />
-    <title>БДВР</title>
+    <title>Забор ресурса</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
+        <h2>
+            Забор ресурса
+        </h2>
         <h:form>
             <p>
                 Склад:
@@ -33,6 +36,7 @@
             <h:inputText value="#{nHResource.ccount}"/>
 
             <h:commandButton value="Взять" action="#{nHResource.subHresource}"/>
+            <h:outputText value="На складе недостаточно ресурсов" rendered=""
 
         </h:form>
 

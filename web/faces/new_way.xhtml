@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <h:outputStylesheet name="/css/styles.css" />
+    <title>Добавление пути</title>
+</h:head>
+<h:body>
+    <ui:include src="comps/title.xhtml"/>
+    <div class="main">
+        <h2>
+            Добавление пути
+        </h2>
+        <h:form>
+            <p>
+                Исходный адрес:
+            </p>
+            <h:inputText value="#{nNWay.add_1}"/>
+            <p>
+                Конечный адрес:
+            </p>
+            <h:inputText value="#{nNWay.add_2}"/>
+            <p>
+                Длина пути (км):
+            </p>
+            <h:inputText value="#{nNWay.length}"/>
+
+            <p>
+                Тип дорожного покрытия:
+            </p>
+            <h:selectOneMenu value="#{nNWay.type}">
+                <f:selectItem itemValue="Грунтовое"/>
+                <f:selectItem itemValue="Асфальт"/>
+                <f:selectItem itemValue="Брусчатка"/>
+            </h:selectOneMenu>
+            <h:commandButton action="#{nNWay.addWay}" value="Добавить" />
+
+        </h:form>
+
+    </div>
+</h:body>
+</html>

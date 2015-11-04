@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class NRequest {
     private String address;
     private String resource;
-    private String type="Перевыберите ресурс";
+    private String type="РџРµСЂРµРІС‹Р±РµСЂРёС‚Рµ СЂРµСЃСѓСЂСЃ";
     private String ccount;
     private int count;
 

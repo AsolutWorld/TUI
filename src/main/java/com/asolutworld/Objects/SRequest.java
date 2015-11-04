@@ -13,6 +13,16 @@ public class SRequest implements Serializable,Comparable {
     private boolean active=true;
     private String address="";
 
+    public int getReq_id() {
+        return req_id;
+    }
+
+    public void setReq_id(int req_id) {
+        this.req_id = req_id;
+    }
+
+    private int req_id;
+
     public SRequest(String in_out,String name,String resource,int count,String type, Date date){
         this.in_out=in_out;
         this.name=name;
@@ -23,7 +33,7 @@ public class SRequest implements Serializable,Comparable {
 
     }
 
-    public SRequest(String name,String address,String resource,int count,String type, Date date, boolean active){
+    public SRequest(String name,String address,String resource,int count,String type, Date date, boolean active, int req_id){
         this.address=address;
         this.name=name;
         this.resource=resource;
@@ -31,7 +41,7 @@ public class SRequest implements Serializable,Comparable {
         this.type=type;
         this.date=date;
         this.active=active;
-
+        this.req_id=req_id;
     }
 
     public boolean isActive() {

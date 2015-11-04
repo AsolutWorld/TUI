@@ -7,17 +7,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <h:outputStylesheet name="/css/styles.css" />
-    <title>БДВР</title>
+    <title>База данных запросов</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
+        <h2>
+            База данных запросов
+        </h2>
         <h:form>
-            <h:commandButton value="Скачать"/>
+            <h:commandButton value="Скачать" action="#{databaseController.downloadStockReqFile}"/>
             <h:dataTable value="#{databaseController.allRequests}" var="req"
                          styleClass="employeeTable"
                          headerClass="employeeTableHeader"
-                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow" border="1">
                 <h:column>
                     <f:facet name="header">Ввод/вывод</f:facet>
                     <h:outputText value="#{req.in_out}"/>

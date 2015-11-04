@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Authorization/beans/Login.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Authorization/beans/SessionBean.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Authorization/dao/LoginDAO.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Authorization/filter/AuthorizationFilter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Constants/Strings.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Database/DatabaseController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Database/NHResource.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Database/NRequest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Database/NResource.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Database/Register.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Database/ReportManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Objects/Resource.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Objects/SRequest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Objects/SResource.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Objects/Stock.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Objects/Volunteer.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Utils/DataConnection.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/Utils/SendMail.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/asolutworld/beans/tui.java" charset="UTF-8" />
+  </component>
+</project>

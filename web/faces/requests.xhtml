@@ -7,18 +7,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <h:outputStylesheet name="/css/styles.css" />
-    <title>БДВР</title>
+    <title>База данных запросов</title>
 </h:head>
 <h:body>
     <ui:include src="comps/title.xhtml"/>
     <div class="main">
+        <h2>
+            База данных запросов
+        </h2>
         <h:form>
-            <h:commandButton value="Новый запрос" action="new_request"/>
-            <h:commandButton value="Скачать"/>
+            <h:commandButton value="Новый запрос" action="new_request" />
+            <h:commandButton value="Новый тип ресурсов" action="new_resource" rendered="#{login.isAdmin}"/>
+            <h:commandButton value="Сохранить изменения" action="#{databaseController.updateRequests}" rendered="false"/>
+            <h:commandButton value="Скачать" action="#{databaseController.downloadRequestsFile}"/>
             <h:dataTable value="#{databaseController.requests}" var="req"
                          styleClass="employeeTable"
                          headerClass="employeeTableHeader"
-                         rowClasses="employeeTableOddRow,employeeTableEvenRow">
+                         rowClasses="employeeTableOddRow,employeeTableEvenRow" border="1">
                 <h:column>
                     <f:facet name="header">Пользователь</f:facet>
                     <h:outputText value="#{req.name}"/>
@@ -45,7 +50,7 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Активен</f:facet>
-                    <h:selectBooleanCheckbox value="#{req.active}"/>
+                    <h:selectBooleanCheckbox value="#{req.active}" disabled="true"/>
                 </h:column>
             </h:dataTable>
         </h:form>

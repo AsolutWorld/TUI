@@ -53,5 +53,21 @@
             <from-outcome>register</from-outcome>
             <to-view-id>/faces/public/register.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>transport</from-outcome>
+            <to-view-id>/faces/transport.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new_transport</from-outcome>
+            <to-view-id>/faces/new_transport.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ways</from-outcome>
+            <to-view-id>/faces/ways.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new_way</from-outcome>
+            <to-view-id>/faces/new_way.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

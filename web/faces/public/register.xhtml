@@ -17,7 +17,7 @@
                     <h:outputText value="Логин"/>
                 </td>
                 <td>
-                    <h:inputText value="#{register.login}" valueChangeListener="#{register.onChangeListener}"/>
+                    <h:inputText value="#{register.login}" />
                 </td>
                 <td>
                     <h:outputText value="Логин занят" rendered="#{register.usedl}"/>
@@ -78,7 +78,7 @@
                 </td>
             </tr>
         </table>
-        <h:commandButton value="" action="#{register.addUser}"/>
+        <h:commandButton value="Зарегистрироваться" action="#{register.addUser}"/>
     </h:form>
 </h:body>
 </html>

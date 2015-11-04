@@ -31,10 +31,12 @@ public class Register {
         this.usedl = usedl;
     }
 
-    private String ADD_USER="INSERT INTO volunteers VALUES (DEFAULT ,?,?,?,?,?,?,'public',?)";
+    private String ADD_USER="INSERT INTO volunteers VALUES (DEFAULT ,?,?,?,?,?,?,'user',?)";
     private String CHECK_USER="SELECT login FROM volunteers WHERE login=?";
 
     public String addUser(){
+        if(login.equals("")||pass.equals("")||sname.equals("")||fname.equals("")||address.equals("")||phone.equals(""))
+            return "index";
         try {
             if(usedl)return "register";
             Connection connection= DataConnection.getConnecion();
@@ -54,7 +56,7 @@ public class Register {
                 prep.execute();
 
                 connection.close();
-                SendMail.send(hash,login,address);
+                //SendMail.send(hash,login,address);
             }
         } catch (SQLException e) {
             e.printStackTrace();
